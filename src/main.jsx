@@ -7,14 +7,32 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
+
+import Main from './components/Layout/Main';
+import Home from './components/Home/Home';
+import OrderReview from './components/OrderReview/OrderReview';
+
+
 const router = createBrowserRouter([
   {
-    path: '/'
+    path: '/',
+    element: <Main></Main>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>,
+        loader: () => fetch('tshirts.json')
+      },
+      {
+        path: '/',
+        element: <OrderReview></OrderReview>
+      }
+    ]
   }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 )
